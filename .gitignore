@@ -1,0 +1,22 @@
+node_modules/
+dist/
+.DS_Store
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# Build and cache output
+.vite/
+coverage/
+
+# Workspace artifacts
+app.tar.gz
+
+# PocketBase local runtime state
+apps/pocketbase/pb_data/
+apps/pocketbase/pb_snapshots/
+
+# Optional local PocketBase data mount
+data/

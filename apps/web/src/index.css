@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "DM Sans", sans-serif;
+  overflow-x: clip;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    
+    /* Teal Primary #14b8a6 */
+    --primary: 173 80% 40%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 210 16% 93%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 16% 93%;
+    --muted-foreground: 215 16% 47%;
+    
+    /* Amber Accent #f59e0b */
+    --accent: 38 92% 50%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 173 80% 40%;
+    --radius: 0.75rem;
+
+    /* Admin Tokens - Light */
+    --admin-bg: 210 20% 96%;
+    --admin-card: 0 0% 100%;
+    --admin-border: 214 32% 90%;
+    --admin-text: 222 47% 11%;
+    --admin-muted: 215 16% 47%;
+    --admin-hover: 210 16% 93%;
+    --admin-sidebar: 222 47% 11%;
+    --admin-sidebar-text: 210 20% 98%;
+    --admin-sidebar-hover: 217 33% 17%;
+    
+    /* Data Visualization & Status Tokens */
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --error: 0 84% 60%;
+    --error-foreground: 0 0% 100%;
+    --info: 217 91% 60%;
+    --info-foreground: 0 0% 100%;
+
+    /* Demo Tokens */
+    --demo-primary: 173 84% 32%; /* #0D9488 */
+    --demo-primary-foreground: 0 0% 100%;
+    --demo-accent: 38 92% 50%; /* #F59E0B */
+    --demo-accent-foreground: 222 47% 11%;
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 20% 98%;
+    --card: 222 47% 15%;
+    --card-foreground: 210 20% 98%;
+    --popover: 222 47% 15%;
+    --popover-foreground: 210 20% 98%;
+    
+    /* Teal Primary #14b8a6 */
+    --primary: 173 80% 40%;
+    --primary-foreground: 222 47% 11%;
+    
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    
+    /* Amber Accent #f59e0b */
+    --accent: 38 92% 50%;
+    --accent-foreground: 222 47% 11%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 173 80% 40%;
+
+    /* Admin Tokens - Dark */
+    --admin-bg: 224 71% 4%;
+    --admin-card: 222 47% 11%;
+    --admin-border: 217 33% 17%;
+    --admin-text: 210 20% 98%;
+    --admin-muted: 215 20% 65%;
+    --admin-hover: 217 33% 17%;
+    --admin-sidebar: 224 71% 4%;
+    --admin-sidebar-text: 210 20% 98%;
+    --admin-sidebar-hover: 222 47% 11%;
+
+    /* Data Visualization & Status Tokens */
+    --success: 142 71% 45%;
+    --success-foreground: 222 47% 11%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 47% 11%;
+    --error: 0 84% 60%;
+    --error-foreground: 210 20% 98%;
+    --info: 217 91% 60%;
+    --info-foreground: 210 20% 98%;
+
+    /* Demo Tokens */
+    --demo-primary: 173 84% 32%;
+    --demo-primary-foreground: 0 0% 100%;
+    --demo-accent: 38 92% 50%;
+    --demo-accent-foreground: 222 47% 11%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+
+  .demo-fade-in {
+    animation: demoFadeIn 0.3s ease-out forwards;
+  }
+  
+  .demo-fade-out {
+    animation: demoFadeOut 0.3s ease-in forwards;
+  }
+
+  @keyframes demoFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes demoFadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(10px); }
+  }
+}
