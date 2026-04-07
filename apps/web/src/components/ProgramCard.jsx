@@ -23,8 +23,15 @@ function ProgramCard({ program, onAction, actionLabel = "View Details" }) {
 
   return (
     <Card className="flex flex-col h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-xl border-border/50 bg-card/50 backdrop-blur-sm overflow-hidden group">
-      <div className={`h-28 w-full bg-gradient-to-r ${presentation.gradient} p-4 text-white`}>
-        <div className="flex items-start justify-between gap-3">
+      <div className={`relative h-36 w-full overflow-hidden bg-gradient-to-r ${presentation.gradient} p-4 text-white`}>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.22),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.16),transparent_32%)]" />
+        <div className="absolute bottom-3 right-3 h-16 w-28 rounded-[1.25rem] border border-white/25 bg-white/10 backdrop-blur-sm">
+          <div className="absolute left-3 top-3 h-5 w-5 rounded-full bg-white/85" />
+          <div className="absolute right-3 top-4 h-2 w-10 rounded-full bg-white/50" />
+          <div className="absolute bottom-4 left-3 h-6 w-16 rounded-full bg-white/20" />
+          <div className="absolute bottom-3 right-3 h-8 w-8 rounded-2xl bg-white/30" />
+        </div>
+        <div className="relative flex items-start justify-between gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/15 backdrop-blur-sm">
             <Icon className="w-5 h-5" />
           </div>
@@ -51,7 +58,7 @@ function ProgramCard({ program, onAction, actionLabel = "View Details" }) {
             </Badge>
           )}
         </div>
-        <CardTitle className="text-xl leading-tight text-balance group-hover:text-primary transition-colors">
+        <CardTitle className="text-lg leading-tight text-balance transition-colors group-hover:text-primary sm:text-xl">
           {program.title}
         </CardTitle>
       </CardHeader>

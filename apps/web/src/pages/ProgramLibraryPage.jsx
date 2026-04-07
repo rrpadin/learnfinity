@@ -211,7 +211,7 @@ function ProgramLibraryPage() {
         type="button"
         onClick={() => navigate(`/programs/${program.id}`)}
         className={`text-left transition-transform active:scale-[0.98] ${
-          featured ? 'w-full' : 'min-w-[252px]'
+          featured ? 'w-full' : 'min-w-[252px] md:min-w-0'
         }`}
       >
         <div className={`rounded-[1.9rem] border border-white/80 bg-white/75 p-4 shadow-[0_16px_40px_rgba(44,94,204,0.08)] backdrop-blur-lg ${featured ? 'min-h-[218px]' : 'min-h-[196px]'}`}>
@@ -236,7 +236,27 @@ function ProgramLibraryPage() {
             </div>
           </div>
 
-          <h3 className="mt-5 text-xl font-black leading-tight tracking-[-0.03em] text-foreground">
+          <div className={`relative mt-4 overflow-hidden rounded-[1.5rem] bg-gradient-to-br ${presentation.gradient} p-4 text-white`}>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.26),transparent_26%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.16),transparent_34%)]" />
+            <div className="relative flex items-end justify-between gap-3">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/75">
+                  {program.goal}
+                </p>
+                <p className="mt-2 max-w-[10rem] text-sm font-semibold leading-5 text-white/90">
+                  {presentation.isSprint ? 'Fast-track sprint path' : 'Smart path preview'}
+                </p>
+              </div>
+              <div className="relative h-16 w-24 rounded-[1.2rem] border border-white/25 bg-white/10 backdrop-blur-sm">
+                <div className="absolute left-3 top-3 h-5 w-5 rounded-full bg-white/85" />
+                <div className="absolute right-3 top-4 h-2 w-9 rounded-full bg-white/50" />
+                <div className="absolute bottom-4 left-3 h-6 w-14 rounded-full bg-white/20" />
+                <div className="absolute bottom-3 right-3 h-8 w-8 rounded-2xl bg-white/30" />
+              </div>
+            </div>
+          </div>
+
+          <h3 className="mt-5 text-lg font-black leading-tight tracking-[-0.03em] text-foreground sm:text-xl">
             {program.outcomeTitle}
           </h3>
           <p className="mt-2 text-sm text-muted-foreground">
@@ -278,8 +298,8 @@ function ProgramLibraryPage() {
           <h3 className="mt-1 text-xl font-black tracking-[-0.03em] text-foreground">{title}</h3>
         </div>
 
-        <div className="-mx-4 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <div className="flex gap-3">
+        <div className="-mx-4 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:overflow-visible md:px-0">
+          <div className="flex gap-3 md:grid md:grid-cols-2 xl:grid-cols-3">
             {items.map((program) => (
               <ProgramCard key={program.id} program={program} />
             ))}
@@ -292,7 +312,7 @@ function ProgramLibraryPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-[linear-gradient(180deg,#f7f9ff_0%,#edf3ff_55%,#e7efff_100%)] px-4 pb-28 pt-5">
-        <div className="mx-auto flex max-w-md flex-col gap-4">
+        <div className="mx-auto flex max-w-md flex-col gap-4 sm:max-w-2xl lg:max-w-5xl xl:max-w-6xl">
           <Skeleton className="h-14 rounded-3xl" />
           <Skeleton className="h-14 rounded-3xl" />
           <Skeleton className="h-48 rounded-[2rem]" />
@@ -314,7 +334,7 @@ function ProgramLibraryPage() {
       </Helmet>
 
       <div className="min-h-screen bg-[linear-gradient(180deg,#f7f9ff_0%,#edf3ff_55%,#e7efff_100%)] pb-28">
-        <div className="mx-auto flex max-w-md flex-col gap-5 px-4 pb-8 pt-5 sm:max-w-lg">
+        <div className="mx-auto flex max-w-md flex-col gap-5 px-4 pb-8 pt-5 sm:max-w-2xl lg:max-w-5xl xl:max-w-6xl">
           <section className="rounded-[2rem] border border-white/70 bg-white/70 p-4 shadow-[0_20px_50px_rgba(44,94,204,0.08)] backdrop-blur-xl">
             <div className="flex items-center justify-between gap-3">
               <button
@@ -366,7 +386,7 @@ function ProgramLibraryPage() {
               <h2 className="mt-1 text-xl font-black tracking-[-0.03em] text-foreground">Recommended for You</h2>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-3 lg:grid lg:grid-cols-3 lg:gap-4 lg:space-y-0">
               {recommendedPrograms.length > 0 ? (
                 recommendedPrograms.map((program) => (
                   <ProgramCard key={program.id} program={program} featured />
@@ -505,7 +525,7 @@ function ProgramLibraryPage() {
         ) : null}
 
         <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-white/70 bg-white/88 px-3 pb-[calc(env(safe-area-inset-bottom,0px)+10px)] pt-3 shadow-[0_-10px_35px_rgba(44,94,204,0.1)] backdrop-blur-xl">
-          <div className="mx-auto flex max-w-md items-end justify-between gap-2">
+          <div className="mx-auto flex max-w-md items-end justify-between gap-2 sm:max-w-2xl lg:max-w-5xl xl:max-w-6xl">
             {navItems.map((item) => {
               const Icon = item.icon;
 
