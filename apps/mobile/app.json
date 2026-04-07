@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "Learnfinity",
+    "slug": "learnfinity",
+    "scheme": "learnfinity",
+    "version": "1.0.0",
+    "icon": "./assets/icon.png",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F4F8FF"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "icon": "./assets/icon.png",
+      "bundleIdentifier": "com.learnfinity.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#F4F8FF"
+      },
+      "package": "com.learnfinity.app"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "replace-me-before-store-submission"
+      }
+    }
+  }
+}
