@@ -48,7 +48,7 @@ function EnrollmentDialog({ program, open, onOpenChange }) {
 
       toast.success(`Successfully enrolled in ${program.title}!`);
       onOpenChange(false);
-      navigate('/'); // Redirect to dashboard to start
+      navigate('/mission');
       
     } catch (error) {
       console.error("Enrollment error:", error);

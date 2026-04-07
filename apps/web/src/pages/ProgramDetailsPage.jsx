@@ -214,7 +214,7 @@ function ProgramDetailsPage() {
 
                       <div className="space-y-4">
                         {isCurrentProgram ? (
-                          <Button size="lg" className="w-full text-lg h-14" onClick={() => navigate('/')}>
+                          <Button size="lg" className="w-full text-lg h-14" onClick={() => navigate('/mission')}>
                             Continue Program
                           </Button>
                         ) : (
