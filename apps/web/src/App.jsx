@@ -20,6 +20,7 @@ import MissionWorkspacePage from '@/pages/MissionWorkspacePage.jsx';
 import ProgressTrackerPage from '@/pages/ProgressTrackerPage.jsx';
 import ProgramLibraryPage from '@/pages/ProgramLibraryPage.jsx';
 import ProgramDetailsPage from '@/pages/ProgramDetailsPage.jsx';
+import CommunityPage from '@/pages/CommunityPage.jsx';
 
 // Admin Pages
 import AdminDashboard from '@/pages/admin/AdminDashboard.jsx';
@@ -86,6 +87,14 @@ function App() {
                   }
                 />
                 <Route
+                  path="/community"
+                  element={
+                    <ProtectedRoute>
+                      <CommunityPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
                   path="/settings"
                   element={
                     <ProtectedRoute>
@@ -144,6 +153,7 @@ function App() {
               <Route path="/admin-demo" element={null} />
               <Route path="/" element={null} />
               <Route path="/programs" element={null} />
+              <Route path="/community" element={null} />
               <Route path="*" element={<Footer />} />
             </Routes>
             <Toaster />

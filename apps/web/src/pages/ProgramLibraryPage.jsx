@@ -181,7 +181,7 @@ function ProgramLibraryPage() {
     { id: 'home', label: 'Home', icon: Home, onClick: () => navigate('/') },
     { id: 'explore', label: 'Explore', icon: Compass, active: true, onClick: () => navigate('/programs') },
     { id: 'create', label: 'Create', icon: Plus, emphasize: true, onClick: () => navigate('/mission') },
-    { id: 'community', label: 'Community', icon: Users, onClick: () => toast('Community feed is next on the roadmap') },
+    { id: 'community', label: 'Community', icon: Users, onClick: () => navigate('/community') },
     { id: 'profile', label: 'Profile', icon: UserCircle2, onClick: () => navigate('/settings') },
   ];
 

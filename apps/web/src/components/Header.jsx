@@ -15,7 +15,8 @@ function Header() {
   if (
     location.pathname.startsWith('/admin') ||
     location.pathname === '/' ||
-    location.pathname === '/programs'
+    location.pathname === '/programs' ||
+    location.pathname === '/community'
   ) {
     return null;
   }
