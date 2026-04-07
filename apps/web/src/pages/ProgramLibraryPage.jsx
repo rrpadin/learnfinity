@@ -77,6 +77,11 @@ function ProgramLibraryPage() {
   }, []);
 
   const firstName = currentUser?.name?.split(' ')[0] || 'Reggie';
+  const featuredFlowTitles = [
+    'AI Prompt Engineering Mastery – 7-Day Sprint',
+    'Content Creator Accelerator – 14-Day Sprint',
+    'Business Strategy Bootcamp – 21-Day Sprint',
+  ];
 
   const enrichedPrograms = useMemo(() => {
     const outcomeFallbacks = [
@@ -167,13 +172,20 @@ function ProgramLibraryPage() {
   }, [activeChip, enrichedPrograms, filters, query]);
 
   const recommendedPrograms = personalizedPrograms
-    .filter((program) => program.isRecommended)
+    .filter((program) => program.isRecommended || featuredFlowTitles.includes(program.title))
+    .sort((a, b) => {
+      const aFeatured = featuredFlowTitles.includes(a.title) ? 1 : 0;
+      const bFeatured = featuredFlowTitles.includes(b.title) ? 1 : 0;
+      return bFeatured - aFeatured;
+    })
     .slice(0, 3);
 
   const groupedPrograms = useMemo(
     () => ({
       improveNow: personalizedPrograms.filter((program) => program.quickMinutes <= 5).slice(0, 6),
-      buildSkill: personalizedPrograms.filter((program) => program.goal === 'AI Skills').slice(0, 6),
+      buildSkill: personalizedPrograms
+        .filter((program) => featuredFlowTitles.includes(program.title) || program.goal === 'AI Skills')
+        .slice(0, 6),
       transformRoutine: personalizedPrograms.filter((program) => program.goal === 'Mindset' || program.goal === 'Productivity').slice(0, 6),
       advanceCareer: personalizedPrograms.filter((program) => program.goal === 'Career' || program.goal === 'Leadership').slice(0, 6),
     }),

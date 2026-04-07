@@ -10,7 +10,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import EnrollmentDialog from '@/components/EnrollmentDialog.jsx';
-import { ArrowLeft, Clock, Users, Star, CheckCircle2, Target, Sparkles } from 'lucide-react';
+import { ArrowLeft, Clock, Users, Star, CheckCircle2, Target, Sparkles, Route } from 'lucide-react';
 import { getProgramPresentation } from '@/lib/programPresentation';
 import { toast } from 'sonner';
 
@@ -156,9 +156,24 @@ function ProgramDetailsPage() {
 
               {/* Mission Preview */}
               <section>
-                <h2 className="text-2xl font-semibold mb-6">Curriculum Preview</h2>
+                <h2 className="text-2xl font-semibold mb-6">Full Program Flow</h2>
+                <div className="mb-5 rounded-2xl border border-primary/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(234,241,255,0.92))] p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                      <Route className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">
+                        See the full learner path before you start
+                      </p>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        This program includes {missions.length} mission{missions.length === 1 ? '' : 's'} arranged as a complete end-to-end flow.
+                      </p>
+                    </div>
+                  </div>
+                </div>
                 <Accordion type="single" collapsible className="w-full">
-                  {missions.slice(0, 3).map((mission) => (
+                  {missions.map((mission) => (
                     <AccordionItem key={mission.id} value={mission.id} className="border-border/50">
                       <AccordionTrigger className="hover:no-underline hover:bg-muted/30 px-4 rounded-lg transition-colors">
                         <div className="flex items-center gap-4 text-left">
@@ -173,11 +188,6 @@ function ProgramDetailsPage() {
                     </AccordionItem>
                   ))}
                 </Accordion>
-                {missions.length > 3 && (
-                  <p className="text-sm text-muted-foreground mt-4 text-center italic">
-                    + {missions.length - 3} more missions included in this program.
-                  </p>
-                )}
               </section>
             </div>
 
