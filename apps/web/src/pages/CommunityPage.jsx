@@ -138,7 +138,7 @@ function CommunityPage() {
       </Helmet>
 
       <div className="min-h-screen bg-[linear-gradient(180deg,#f7f9ff_0%,#edf3ff_55%,#e7efff_100%)] pb-28">
-        <div className="mx-auto flex max-w-md flex-col gap-5 px-4 pb-8 pt-5 sm:max-w-lg">
+        <div className="mx-auto flex max-w-md flex-col gap-5 px-4 pb-8 pt-5 sm:max-w-2xl lg:max-w-5xl xl:max-w-6xl">
           <section className="rounded-[2rem] border border-white/70 bg-white/70 p-4 shadow-[0_20px_50px_rgba(44,94,204,0.08)] backdrop-blur-xl">
             <div className="flex items-center justify-between gap-3">
               <button
@@ -214,7 +214,7 @@ function CommunityPage() {
               </h2>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-3 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0">
               {communityData.posts.map((post) => {
                 const expanded = expandedPostId === post.id;
 
@@ -303,12 +303,12 @@ function CommunityPage() {
               </h2>
             </div>
 
-            <div className="-mx-4 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              <div className="flex gap-3">
+            <div className="-mx-4 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:overflow-visible md:px-0">
+              <div className="flex gap-3 md:grid md:grid-cols-2 xl:grid-cols-3">
                 {communityData.circles.map((circle) => (
                   <div
                     key={circle.id}
-                    className="min-w-[230px] rounded-[1.8rem] border border-white/80 bg-white/78 p-4 shadow-[0_16px_40px_rgba(44,94,204,0.08)] backdrop-blur-lg"
+                    className="min-w-[230px] rounded-[1.8rem] border border-white/80 bg-white/78 p-4 shadow-[0_16px_40px_rgba(44,94,204,0.08)] backdrop-blur-lg md:min-w-0"
                   >
                     <p className="text-base font-bold text-foreground">{circle.name}</p>
                     <p className="mt-2 text-sm text-muted-foreground">
@@ -332,7 +332,7 @@ function CommunityPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary/70">
               Trending learning moments
             </p>
-            <div className="mt-4 space-y-3">
+            <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
               {communityData.trending.map((item) => (
                 <div
                   key={item}
@@ -348,7 +348,7 @@ function CommunityPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary/70">
               Encouraging snapshot
             </p>
-            <div className="mt-4 grid grid-cols-1 gap-3">
+            <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
               {communityData.leaderboard.map((item) => (
                 <div
                   key={item.id}
@@ -398,7 +398,7 @@ function CommunityPage() {
         </div>
 
         <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-white/70 bg-white/88 px-3 pb-[calc(env(safe-area-inset-bottom,0px)+10px)] pt-3 shadow-[0_-10px_35px_rgba(44,94,204,0.1)] backdrop-blur-xl">
-          <div className="mx-auto flex max-w-md items-end justify-between gap-2">
+          <div className="mx-auto flex max-w-md items-end justify-between gap-2 sm:max-w-2xl lg:max-w-5xl xl:max-w-6xl">
             {navItems.map((item) => {
               const Icon = item.icon;
 
