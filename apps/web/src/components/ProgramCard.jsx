@@ -4,8 +4,12 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/componen
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Clock, Users, Star } from 'lucide-react';
+import { getProgramPresentation } from '@/lib/programPresentation';
 
 function ProgramCard({ program, onAction, actionLabel = "View Details" }) {
+  const presentation = getProgramPresentation(program);
+  const Icon = presentation.Icon;
+
   const truncate = (str, length) => {
     if (!str) return '';
     return str.length > length ? str.substring(0, length) + '...' : str;
@@ -19,7 +23,23 @@ function ProgramCard({ program, onAction, actionLabel = "View Details" }) {
 
   return (
     <Card className="flex flex-col h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-xl border-border/50 bg-card/50 backdrop-blur-sm overflow-hidden group">
-      <div className="h-2 w-full bg-gradient-to-r from-primary/40 to-accent/40 group-hover:from-primary group-hover:to-accent transition-colors duration-300" />
+      <div className={`h-28 w-full bg-gradient-to-r ${presentation.gradient} p-4 text-white`}>
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/15 backdrop-blur-sm">
+            <Icon className="w-5 h-5" />
+          </div>
+          <div className="flex flex-wrap justify-end gap-2">
+            <Badge variant="secondary" className="border-none bg-white/15 text-white backdrop-blur-sm">
+              {presentation.formatLabel}
+            </Badge>
+            {presentation.aiLabel ? (
+              <Badge variant="secondary" className="border-none bg-white/15 text-white backdrop-blur-sm">
+                {presentation.aiLabel}
+              </Badge>
+            ) : null}
+          </div>
+        </div>
+      </div>
       <CardHeader className="pb-4">
         <div className="flex justify-between items-start gap-4 mb-3">
           <Badge variant="secondary" className="font-medium">
@@ -43,7 +63,7 @@ function ProgramCard({ program, onAction, actionLabel = "View Details" }) {
         <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground/80">
           <div className="flex items-center gap-1.5">
             <Clock className="w-4 h-4" />
-            <span>{program.duration_days} Days</span>
+            <span>{presentation.isSprint ? `${program.duration_days} Day Sprint` : `${program.duration_days} Days`}</span>
           </div>
           <div className="flex items-center gap-1.5">
             <Users className="w-4 h-4" />
@@ -59,7 +79,7 @@ function ProgramCard({ program, onAction, actionLabel = "View Details" }) {
       </CardContent>
       <CardFooter className="pt-0 mt-auto">
         <Button onClick={() => onAction(program)} className="w-full group-hover:shadow-md transition-all">
-          {actionLabel}
+          {presentation.isAdaptive ? 'Open Jordy Path' : actionLabel}
         </Button>
       </CardFooter>
     </Card>

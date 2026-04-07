@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Save, Plus, GripVertical, Trash2, Edit } from 'lucide-react';
+import { ArrowLeft, Save, Plus, Trash2, Edit } from 'lucide-react';
 import { toast } from 'sonner';
 
 function ProgramEditor() {
@@ -27,6 +27,12 @@ function ProgramEditor() {
     description: '',
     difficulty: 'beginner',
     status: 'draft',
+    program_format: 'standard',
+    ai_mode: 'static',
+    visual_theme: 'ocean',
+    visual_icon: 'spark',
+    cover_image: '',
+    jordy_personalization_hint: '',
     learning_outcomes: ['']
   });
 
@@ -46,6 +52,12 @@ function ProgramEditor() {
         description: program.description || '',
         difficulty: program.difficulty || 'beginner',
         status: program.status || 'draft',
+        program_format: program.program_format || 'standard',
+        ai_mode: program.ai_mode || 'static',
+        visual_theme: program.visual_theme || 'ocean',
+        visual_icon: program.visual_icon || 'spark',
+        cover_image: program.cover_image || '',
+        jordy_personalization_hint: program.jordy_personalization_hint || '',
         learning_outcomes: program.learning_outcomes?.length ? program.learning_outcomes : ['']
       });
 
@@ -207,6 +219,27 @@ function ProgramEditor() {
                   </div>
                 </div>
 
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium mb-1 block">Cover Image URL</label>
+                    <Input
+                      value={formData.cover_image}
+                      onChange={(e) => handleChange('cover_image', e.target.value)}
+                      placeholder="https://..."
+                      className="bg-[hsl(var(--admin-bg))]"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium mb-1 block">Jordy Personalization Hint</label>
+                    <Input
+                      value={formData.jordy_personalization_hint}
+                      onChange={(e) => handleChange('jordy_personalization_hint', e.target.value)}
+                      placeholder="Who is this best for?"
+                      className="bg-[hsl(var(--admin-bg))]"
+                    />
+                  </div>
+                </div>
+
                 <div>
                   <label className="text-sm font-medium mb-2 block">Learning Outcomes</label>
                   <div className="space-y-2">
@@ -291,6 +324,66 @@ function ProgramEditor() {
                       <SelectItem value="draft">Draft</SelectItem>
                       <SelectItem value="active">Active</SelectItem>
                       <SelectItem value="archived">Archived</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium mb-1 block">Program Format</label>
+                  <Select value={formData.program_format} onValueChange={(v) => handleChange('program_format', v)}>
+                    <SelectTrigger className="bg-[hsl(var(--admin-bg))]">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="standard">Standard Program</SelectItem>
+                      <SelectItem value="sprint">Sprint</SelectItem>
+                      <SelectItem value="adaptive">Adaptive Path</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium mb-1 block">AI Mode</label>
+                  <Select value={formData.ai_mode} onValueChange={(v) => handleChange('ai_mode', v)}>
+                    <SelectTrigger className="bg-[hsl(var(--admin-bg))]">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="static">Static</SelectItem>
+                      <SelectItem value="jordy_guided">Jordy Guided</SelectItem>
+                      <SelectItem value="jordy_generated">Jordy Generated</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium mb-1 block">Visual Theme</label>
+                  <Select value={formData.visual_theme} onValueChange={(v) => handleChange('visual_theme', v)}>
+                    <SelectTrigger className="bg-[hsl(var(--admin-bg))]">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="ocean">Ocean</SelectItem>
+                      <SelectItem value="sunrise">Sunrise</SelectItem>
+                      <SelectItem value="forest">Forest</SelectItem>
+                      <SelectItem value="midnight">Midnight</SelectItem>
+                      <SelectItem value="citrus">Citrus</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium mb-1 block">Visual Icon</label>
+                  <Select value={formData.visual_icon} onValueChange={(v) => handleChange('visual_icon', v)}>
+                    <SelectTrigger className="bg-[hsl(var(--admin-bg))]">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="spark">Spark</SelectItem>
+                      <SelectItem value="target">Target</SelectItem>
+                      <SelectItem value="brain">Brain</SelectItem>
+                      <SelectItem value="bolt">Bolt</SelectItem>
+                      <SelectItem value="mountain">Mountain</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

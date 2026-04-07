@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { getPrograms } from '@learnfinity/core';
 import { useAuth } from '@/contexts/AuthContext.jsx';
 import pb from '@/lib/pocketbaseClient';
+import { getProgramPresentation } from '@/lib/programPresentation';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
@@ -118,6 +119,10 @@ function ProgramLibraryPage() {
         cta: completed ? 'Continue' : started ? 'Resume' : 'Start',
         icon:
           [Zap, Briefcase, Sparkles, Target, BookOpen][index % 5],
+        program_format: program.program_format || (index % 5 === 0 ? 'sprint' : 'standard'),
+        ai_mode: program.ai_mode || (index % 6 === 0 ? 'jordy_generated' : index % 4 === 0 ? 'jordy_guided' : 'static'),
+        visual_theme: program.visual_theme || ['ocean', 'sunrise', 'forest', 'midnight', 'citrus'][index % 5],
+        visual_icon: program.visual_icon || ['spark', 'target', 'brain', 'bolt', 'mountain'][index % 5],
       };
     });
   }, [programs]);
@@ -186,7 +191,8 @@ function ProgramLibraryPage() {
   ];
 
   const ProgramCard = ({ program, featured = false }) => {
-    const Icon = program.icon;
+    const presentation = getProgramPresentation(program);
+    const Icon = presentation.Icon;
 
     return (
       <button
@@ -198,10 +204,18 @@ function ProgramLibraryPage() {
       >
         <div className={`rounded-[1.9rem] border border-white/80 bg-white/75 p-4 shadow-[0_16px_40px_rgba(44,94,204,0.08)] backdrop-blur-lg ${featured ? 'min-h-[218px]' : 'min-h-[196px]'}`}>
           <div className="flex items-start justify-between gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,rgba(44,94,204,0.14),rgba(154,182,245,0.34))] text-primary">
+            <div className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${presentation.gradient} text-white`}>
               <Icon className="h-5 w-5" />
             </div>
             <div className="flex flex-wrap justify-end gap-2">
+              <span className="rounded-full bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-primary">
+                {presentation.formatLabel}
+              </span>
+              {presentation.aiLabel ? (
+                <span className="rounded-full bg-secondary px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-secondary-foreground">
+                  {presentation.aiLabel}
+                </span>
+              ) : null}
               {program.tag ? (
                 <span className="rounded-full bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-primary">
                   {program.tag}
@@ -213,7 +227,9 @@ function ProgramLibraryPage() {
           <h3 className="mt-5 text-xl font-black leading-tight tracking-[-0.03em] text-foreground">
             {program.outcomeTitle}
           </h3>
-          <p className="mt-2 text-sm text-muted-foreground">{program.durationLabel}</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            {presentation.isSprint ? `${program.duration_days || 5} day sprint • ${program.quickMinutes} min bursts` : program.durationLabel}
+          </p>
           <p className="mt-3 line-clamp-2 text-sm leading-6 text-foreground/80">{program.benefit}</p>
 
           {program.status === 'In progress' ? (

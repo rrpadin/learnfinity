@@ -10,7 +10,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import EnrollmentDialog from '@/components/EnrollmentDialog.jsx';
-import { ArrowLeft, Clock, Users, Star, CheckCircle2, Target } from 'lucide-react';
+import { ArrowLeft, Clock, Users, Star, CheckCircle2, Target, Sparkles } from 'lucide-react';
+import { getProgramPresentation } from '@/lib/programPresentation';
 import { toast } from 'sonner';
 
 function ProgramDetailsPage() {
@@ -49,6 +50,8 @@ function ProgramDetailsPage() {
   };
 
   const isCurrentProgram = currentUser?.current_program_id === id;
+  const presentation = getProgramPresentation(program || {});
+  const HeroIcon = presentation.Icon;
 
   if (loading) {
     return (
@@ -77,12 +80,13 @@ function ProgramDetailsPage() {
       <div className="min-h-screen bg-background flex flex-col">
         {/* Hero Section */}
         <div className="relative w-full h-[350px] md:h-[450px] overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-black/40 z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/75 to-black/20 z-10" />
           <img 
-            src="https://images.unsplash.com/photo-1632158707180-d2873939cd20" 
+            src={program.cover_image || "https://images.unsplash.com/photo-1632158707180-d2873939cd20"} 
             alt="Program hero background" 
             className="absolute inset-0 w-full h-full object-cover"
           />
+          <div className={`absolute inset-0 bg-gradient-to-br ${presentation.gradient} opacity-70`} />
           <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-end pb-12">
             <Button variant="ghost" className="w-fit mb-6 text-white hover:text-white hover:bg-white/20" onClick={() => navigate('/programs')}>
               <ArrowLeft className="w-4 h-4 mr-2" /> Back to Library
@@ -91,9 +95,27 @@ function ProgramDetailsPage() {
               <Badge variant="secondary" className="bg-white/20 text-white hover:bg-white/30 border-none backdrop-blur-md">
                 {program.category}
               </Badge>
+              <Badge variant="secondary" className="bg-white/20 text-white hover:bg-white/30 border-none backdrop-blur-md">
+                {presentation.formatLabel}
+              </Badge>
+              {presentation.aiLabel ? (
+                <Badge variant="secondary" className="bg-white/20 text-white hover:bg-white/30 border-none backdrop-blur-md">
+                  {presentation.aiLabel}
+                </Badge>
+              ) : null}
               <Badge variant="outline" className="text-white border-white/30 backdrop-blur-md capitalize">
                 {program.difficulty}
               </Badge>
+            </div>
+            <div className="mb-4 flex items-center gap-3">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 text-white backdrop-blur-md">
+                <HeroIcon className="w-6 h-6" />
+              </div>
+              {program.jordy_personalization_hint ? (
+                <p className="max-w-md text-sm text-white/80">
+                  {program.jordy_personalization_hint}
+                </p>
+              ) : null}
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight text-balance">
               {program.title}
@@ -187,11 +209,17 @@ function ProgramDetailsPage() {
                           </Button>
                         ) : (
                           <Button size="lg" className="w-full text-lg h-14" onClick={() => setEnrollDialogOpen(true)}>
-                            Enroll Now
+                            {presentation.isSprint ? 'Start Sprint' : presentation.isAdaptive ? 'Start with Jordy' : 'Enroll Now'}
                           </Button>
                         )}
+                        {presentation.aiLabel ? (
+                          <Button variant="outline" size="lg" className="w-full text-base h-12 gap-2">
+                            <Sparkles className="w-4 h-4" />
+                            Ask Jordy to tailor this
+                          </Button>
+                        ) : null}
                         <p className="text-xs text-center text-muted-foreground">
-                          Self-paced learning. Start anytime.
+                          {presentation.isSprint ? 'Short, outcome-driven sprint with fast momentum.' : 'Self-paced learning. Start anytime.'}
                         </p>
                       </div>
                     </div>
