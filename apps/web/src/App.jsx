@@ -142,6 +142,7 @@ function App() {
             <Routes>
               <Route path="/admin/*" element={null} />
               <Route path="/admin-demo" element={null} />
+              <Route path="/" element={null} />
               <Route path="*" element={<Footer />} />
             </Routes>
             <Toaster />
