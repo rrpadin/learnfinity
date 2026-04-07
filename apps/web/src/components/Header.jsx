@@ -12,7 +12,11 @@ function Header() {
   const isActive = (path) => location.pathname === path;
 
   // Don't show standard header on admin routes
-  if (location.pathname.startsWith('/admin') || location.pathname === '/') {
+  if (
+    location.pathname.startsWith('/admin') ||
+    location.pathname === '/' ||
+    location.pathname === '/programs'
+  ) {
     return null;
   }
 
