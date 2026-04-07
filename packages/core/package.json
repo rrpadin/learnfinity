@@ -1,0 +1,15 @@
+{
+  "name": "@learnfinity/core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./pocketbase": "./src/pocketbase.js",
+    "./auth": "./src/auth.js",
+    "./learner": "./src/learner.js"
+  },
+  "dependencies": {
+    "pocketbase": "^0.25.0"
+  }
+}

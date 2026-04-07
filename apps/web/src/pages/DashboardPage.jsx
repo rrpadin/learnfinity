@@ -2,13 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { getDashboardData } from '@learnfinity/core';
 import { useAuth } from '@/contexts/AuthContext.jsx';
 import pb from '@/lib/pocketbaseClient';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import ProgramProgressCard from '@/components/ProgramProgressCard.jsx';
 import MissionCard from '@/components/MissionCard.jsx';
-import { ArrowRight, Compass } from 'lucide-react';
+import { Compass } from 'lucide-react';
 import { toast } from 'sonner';
 
 function DashboardPage() {
@@ -26,32 +27,10 @@ function DashboardPage() {
   const loadDashboardData = async () => {
     try {
       setLoading(true);
-      const user = await pb.collection('users').getOne(currentUser.id, { $autoCancel: false });
-      const programId = user.current_program_id;
-      const currentDay = user.current_day || 1;
-
-      if (programId) {
-        const program = await pb.collection('programs').getOne(programId, { $autoCancel: false });
-        setCurrentProgram(program);
-
-        const missions = await pb.collection('missions').getFullList({
-          filter: `program_id = "${programId}" && day_number = ${currentDay}`,
-          $autoCancel: false
-        });
-
-        if (missions.length > 0) {
-          setNextMission(missions[0]);
-          
-          const userMissions = await pb.collection('user_missions').getFullList({
-            filter: `user_id = "${currentUser.id}" && mission_id = "${missions[0].id}"`,
-            $autoCancel: false
-          });
-
-          if (userMissions.length > 0) {
-            setUserMissionStatus(userMissions[0].status);
-          }
-        }
-      }
+      const data = await getDashboardData(pb, currentUser.id);
+      setCurrentProgram(data.currentProgram);
+      setNextMission(data.nextMission);
+      setUserMissionStatus(data.missionStatus);
     } catch (error) {
       console.error('Error loading dashboard:', error);
       toast.error('Failed to load dashboard data');

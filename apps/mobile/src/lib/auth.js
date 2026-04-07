@@ -1,34 +1,14 @@
+import { loginWithPassword, logoutUser, signupUser } from '@learnfinity/core';
 import { pb } from './pocketbase';
 
-export async function login(email, password) {
-  const authData = await pb
-    .collection('users')
-    .authWithPassword(email, password, { $autoCancel: false });
-
-  return authData.record;
+export function login(email, password) {
+  return loginWithPassword(pb, email, password);
 }
 
-export async function signup({ email, name, password, passwordConfirm }) {
-  await pb.collection('users').create(
-    {
-      email,
-      name,
-      password,
-      passwordConfirm,
-      emailVisibility: true,
-      role: 'user',
-      is_admin: false,
-    },
-    { $autoCancel: false }
-  );
-
-  const authData = await pb
-    .collection('users')
-    .authWithPassword(email, password, { $autoCancel: false });
-
-  return authData.record;
+export function signup(payload) {
+  return signupUser(pb, payload);
 }
 
 export function logout() {
-  pb.authStore.clear();
+  logoutUser(pb);
 }

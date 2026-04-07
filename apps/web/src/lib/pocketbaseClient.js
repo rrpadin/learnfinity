@@ -1,9 +1,12 @@
-import Pocketbase from 'pocketbase';
+import { createPocketBaseClient, resolvePocketBaseUrl } from '@learnfinity/core';
 
-const POCKETBASE_API_URL =
-  import.meta.env.VITE_POCKETBASE_URL || "/hcgi/platform";
+const POCKETBASE_API_URL = resolvePocketBaseUrl({
+  envSource: import.meta.env,
+  envKey: 'VITE_POCKETBASE_URL',
+  fallback: '/hcgi/platform',
+});
 
-const pocketbaseClient = new Pocketbase(POCKETBASE_API_URL);
+const pocketbaseClient = createPocketBaseClient(POCKETBASE_API_URL);
 
 export default pocketbaseClient;
 

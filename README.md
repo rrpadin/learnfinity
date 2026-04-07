@@ -8,6 +8,11 @@ Learnfinity is a monorepo with a React web app and a PocketBase backend.
 - `apps/mobile`: Expo + React Native learner app
 - `apps/pocketbase`: PocketBase app, migrations, and hooks
 
+## Shared packages
+
+- `packages/core`: shared PocketBase client helpers, auth flows, and learner data queries
+- `packages/theme`: shared brand tokens for web and mobile
+
 ## Getting started
 
 ```bash

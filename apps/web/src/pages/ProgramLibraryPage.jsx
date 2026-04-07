@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { getPrograms } from '@learnfinity/core';
 import pb from '@/lib/pocketbaseClient';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -25,10 +26,7 @@ function ProgramLibraryPage() {
   const fetchPrograms = async () => {
     try {
       setLoading(true);
-      const records = await pb.collection('programs').getFullList({
-        sort: '-created',
-        $autoCancel: false
-      });
+      const records = await getPrograms(pb);
       setPrograms(records);
     } catch (error) {
       console.error("Error fetching programs:", error);

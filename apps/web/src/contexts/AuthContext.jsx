@@ -1,6 +1,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { loginWithPassword, logoutUser, signupUser } from '@learnfinity/core';
 import pb from '@/lib/pocketbaseClient';
 
 const AuthContext = createContext(null);
@@ -27,9 +28,9 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     try {
-      const authData = await pb.collection('users').authWithPassword(email, password, { $autoCancel: false });
-      setCurrentUser(authData.record);
-      return { success: true, user: authData.record };
+      const user = await loginWithPassword(pb, email, password);
+      setCurrentUser(user);
+      return { success: true, user };
     } catch (error) {
       console.error('Login error:', error);
       return { success: false, error: error.message || 'Login failed. Please check your credentials.' };
@@ -38,20 +39,15 @@ export function AuthProvider({ children }) {
 
   const signup = async (email, name, password, passwordConfirm) => {
     try {
-      const user = await pb.collection('users').create({
+      const user = await signupUser(pb, {
         email,
         name,
         password,
         passwordConfirm,
-        emailVisibility: true,
-        role: 'user',
-        is_admin: false
-      }, { $autoCancel: false });
-
-      const authData = await pb.collection('users').authWithPassword(email, password, { $autoCancel: false });
-      setCurrentUser(authData.record);
+      });
+      setCurrentUser(user);
       
-      return { success: true, user: authData.record };
+      return { success: true, user };
     } catch (error) {
       console.error('Signup error:', error);
       return { success: false, error: error.message || 'Signup failed. Please try again.' };
@@ -59,7 +55,7 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
-    pb.authStore.clear();
+    logoutUser(pb);
     setCurrentUser(null);
     navigate('/login');
   };

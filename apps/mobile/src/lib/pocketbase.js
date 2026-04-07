@@ -1,12 +1,15 @@
-import PocketBase from 'pocketbase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createPocketBaseClient, resolvePocketBaseUrl } from '@learnfinity/core';
 
-const baseUrl =
-  process.env.EXPO_PUBLIC_POCKETBASE_URL || 'http://127.0.0.1:8090';
+const baseUrl = resolvePocketBaseUrl({
+  envSource: process.env,
+  envKey: 'EXPO_PUBLIC_POCKETBASE_URL',
+  fallback: 'http://127.0.0.1:8090',
+});
 
 const storageKey = 'learnfinity.auth';
 
-export const pb = new PocketBase(baseUrl);
+export const pb = createPocketBaseClient(baseUrl);
 
 let bootstrapped = false;
 
